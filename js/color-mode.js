@@ -1,29 +1,32 @@
-// define DOM elements
-const toggleButton = document.querySelector("#taggle-button");
+// Define DOM elements
+const toggleButton = document.querySelector("#toggle-button");
 const root = document.querySelector(":root");
-const storgeKey = "color-mode";
-const defaultMode = "dark-mode";
+const storageKey = "color-mode";
+const defaultMode = "light-mode";
 
-// load users preffered mode ftom the local storge
+// Load the user's preffered color mode from local storage.
 function loadColorMode() {
-    const colorMode = localStorage.getItem(storgeKey);
-    root.classList.add(colorMode || defaultMode);
-    updateToggleButton()
+  const colorMode = localStorage.getItem(storageKey);
+  root.classList.add(colorMode || defaultMode);
+  updateToggleButton();
 }
 
-// toggle the color mode
+loadColorMode();
+
+// Toggle the color mode
 toggleButton.addEventListener("click", () => {
   saveColorMode();
 });
 
-// saving the user the prefered mode to local storge
+// Save the users's preffered color mode to local storage
 function saveColorMode() {
+  // Check if the root element has a class of "dark-mode". If yes, then the current mode is switched to light, and vice versa.
   const currentMode = root.classList.contains("dark-mode")
     ? "light-mode"
     : "dark-mode";
   root.classList.remove("light-mode", "dark-mode");
   root.classList.add(currentMode);
-  localStorage.setItem(storgeKey, currentMode);
+  localStorage.setItem(storageKey, currentMode);
   updateToggleButton();
 }
 
@@ -32,6 +35,5 @@ function updateToggleButton() {
     toggleButton.style.backgroundImage = "var(--moon)";
   } else {
     toggleButton.style.backgroundImage = "var(--sun)";
-
   }
 }
